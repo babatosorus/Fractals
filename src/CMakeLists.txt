@@ -1,10 +1,11 @@
 		
 set(FRACTALS_SRCS
   colour.cpp
-  fractalGenerator.cpp
+  fractalBuilder.cpp
   mandelbrot.cpp
   viewport.cpp 
-  bitmap.cpp 
+  abstractImageWriter.cpp
+  bitmapWriter.cpp 
 )
 
 add_library(Fractals ${FRACTALS_SRCS})

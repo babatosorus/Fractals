@@ -1,14 +1,16 @@
-#include "bitmap.h"
+#include "bitmapWriter.h"
 
 #include <fstream>
 #include <iostream>
 
-Bitmap::Bitmap(int width, int height)
-: m_Width(width), m_Height(height), m_Data(new Colour[width*height])
+BitmapWriter::BitmapWriter(int width, int height)
+: 
+AbstracImageWriter(width, height), 
+m_Data(new Colour[width*height])
 {
 }
 
-bool Bitmap::write (const std::string& name) 
+bool BitmapWriter::write (const std::string& name) 
 {
 	FileHeader fileHeader;
 	InfoHeader infoHeader;
@@ -36,24 +38,16 @@ bool Bitmap::write (const std::string& name)
 	of.write((char*)m_Data.get(), sizeof(Colour)*m_Width*m_Height); 
 	std::cout<<"ddd"<<std::endl;
 	
-	 of.close();
+	of.close();
 
-//	if (!of)
-//		return false;
-
-	std::cout<<"ddd"<<std::endl;
 
 	return true;
 
 }
 
-void Bitmap::setPixel(int x, int y, const Colour& colour)
+void BitmapWriter::setPixel(int x, int y, const Colour& colour)
 {
 	m_Data[y*m_Width + x] = colour;
 }
 
-void Bitmap::setPixel(int x, int y, Colour&& colour)
-{
-	m_Data[y*m_Width + x] = colour;
-}
 

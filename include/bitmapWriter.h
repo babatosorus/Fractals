@@ -5,31 +5,26 @@
 #include <memory>
 #include <vector>
 
-#include "colour.h"
+#include "abstractImageWriter.h"
 
-class Bitmap
+class BitmapWriter : public AbstracImageWriter
 {
 	public :
 
 	class InfoHeader;
 	class FileHeader;
 
-	Bitmap() = default;
-	Bitmap(int width, int height);
+	BitmapWriter(int width = 0 , int height = 0);
 	
-	bool write (const std::string& name);
-
-	void setPixel(int x, int y, const Colour& col);
-	void setPixel(int x, int y, Colour&& col);
+	bool write(const std::string& name) override;
+	void setPixel(int x, int y, const Colour& col) override;
 
 	private:
-	int m_Width{0};
-	int m_Height{0};
 	std::unique_ptr<Colour[]> m_Data{nullptr};
 };
 
 #pragma pack(2)
-class Bitmap::FileHeader
+class BitmapWriter::FileHeader
 {
 	public :
 	char headerField[2] {'B', 'M'};
@@ -39,7 +34,7 @@ class Bitmap::FileHeader
 };
 
 #pragma pack(2)
-class Bitmap::InfoHeader
+class BitmapWriter::InfoHeader
 {
 	public:
 	int headerSize{40};
