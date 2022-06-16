@@ -1,14 +1,17 @@
-#pragma once 
+#pragma once
 
 
 class MandelBrot
 {
-	public :
+public :
 
-	static int getIteration(double x, double y);
-	
-	static int getMaxIterations() {return m_maxIteration;}
+  static int getIteration(double x, double y);
 
-	private :
-	static const int m_maxIteration = 100;
+  static int getMaxIterations()
+  {
+    return m_maxIteration;
+  }
+
+private :
+  static const int m_maxIteration = 100;
 };

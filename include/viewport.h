@@ -2,43 +2,48 @@
 
 #include <list>
 #include <utility>
-
 class Zoom
 {
-	public :
-	double m_XCenter{0};
-	double m_YCenter{0};
-	double m_Scale{1};
+public :
+  double m_XCenter{0};
+  double m_YCenter{0};
+  double m_Scale{1};
 };
-
 
 class Viewport
 {
-	public :
+public :
 
-	Viewport
-	(
-		const int& width, 
-		const int& height, 	
-		const double& minReal,
-		const double& maxReal,
-		const double& minImaginary
-	);
-	
-	void pushZoom(const Zoom& zoom);
+  Viewport
+  (
+    const int& width,
+    const int& height,
+    const double& minReal,
+    const double& maxReal,
+    const double& minImaginary
+  );
 
-	std::pair<double,double> screenCoordToComplex(const int&x, const int& y);
+  void pushZoom(const Zoom& zoom);
 
-	int getWidth() const {return m_Width;}
-	int getHeight() const {return m_Height;}
+  std::pair<double,double> screenCoordToComplex(const int&x, const int& y);
 
-	private :
+  int getWidth() const
+  {
+    return m_Width;
+  }
 
-	int m_Width;
-	int m_Height;
+  int getHeight() const
+  {
+    return m_Height;
+  }
 
-	double m_MinReal;
-	double m_MaxReal;
-	double m_MinImaginary;
-	double m_MaxImaginary;
+private :
+
+  int m_Width;
+  int m_Height;
+
+  double m_MinReal;
+  double m_MaxReal;
+  double m_MinImaginary;
+  double m_MaxImaginary;
 };

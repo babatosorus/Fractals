@@ -1,4 +1,4 @@
- #pragma once
+#pragma once
 
 #include "viewport.h"
 #include "bitmapWriter.h"
@@ -9,48 +9,48 @@
 
 struct FractalBuilderParams
 {
-	int width;
-	int height;
-	double minReal;
-	double maxReal;
-	double minImaginary;
+  int width;
+  int height;
+  double minReal;
+  double maxReal;
+  double minImaginary;
 };
 
 template <typename T>
 class FractalBuilder
 {
-	public:
-	
-	FractalBuilder(
-		const FractalBuilderParams& params
-	);
+public:
 
-	FractalBuilder& addZoom(const Zoom& zoom);
+  FractalBuilder(
+    const FractalBuilderParams& params
+  );
 
-	FractalBuilder& addColourRange(
-		double range, 
-		const Colour & colour
-	);
-	
-	void generate(const std::string& filename);
+  FractalBuilder& addZoom(const Zoom& zoom);
 
-	private:
+  FractalBuilder& addColourRange(
+    double range,
+    const Colour & colour
+  );
 
-	void reset();
-	void computeIterations();
-	void computeColours();
-	void write(const std::string& filename);
+  void generate(const std::string& filename);
 
-	private:
-	Viewport 							m_Viewport;
-	T   								m_Writer;
+private:
 
-	std::vector<int> 					m_Fractals;
-	std::vector<int> 					m_Histo;
+  void reset();
+  void computeIterations();
+  void computeColours();
+  void write(const std::string& filename);
 
-	std::unordered_map<int,int>			m_ColourLookUp;
-	std::vector<std::pair<Colour,int>>	m_Colours; 
-	std::vector<int>					m_RangeColStats;
+private:
+  Viewport 							m_Viewport;
+  T   								m_Writer;
+
+  std::vector<int> 					m_Fractals;
+  std::vector<int> 						m_Histo;
+
+  std::unordered_map<int,int>			m_ColourLookUp;
+  std::vector<std::pair<Colour,int>>	m_Colours;
+  std::vector<int>					m_RangeColStats;
 };
 
 #include "fractalBuilder.inl"

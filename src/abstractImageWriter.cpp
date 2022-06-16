@@ -2,8 +2,8 @@
 
 
 AbstracImageWriter::AbstracImageWriter(
-	int width, 
-	int height
-)	
-: m_Width(width), m_Height(height)
+  int width,
+  int height
+)
+  : m_Width(width), m_Height(height)
 {}
