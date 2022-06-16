@@ -16,6 +16,7 @@ struct FractalBuilderParams
 	double minImaginary;
 };
 
+template <typename T>
 class FractalBuilder
 {
 	public:
@@ -42,7 +43,7 @@ class FractalBuilder
 
 	private:
 	Viewport 							m_Viewport;
-	BitmapWriter   						m_Bitmap;
+	T   								m_Writer;
 
 	std::vector<int> 					m_Fractals;
 	std::vector<int> 					m_Histo;
@@ -51,3 +52,5 @@ class FractalBuilder
 	std::vector<std::pair<Colour,int>>	m_Colours; 
 	std::vector<int>					m_RangeColStats;
 };
+
+#include "fractalBuilder.inl"

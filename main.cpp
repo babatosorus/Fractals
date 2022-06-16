@@ -1,6 +1,7 @@
 
 #include "fractalBuilder.h"
 #include "colour.h"
+#include "bitmapWriter.h"
 
 #include <iostream>
 
@@ -18,7 +19,7 @@ int main()
 		-1.2
 	};
 
-	FractalBuilder fractalBuilder(params);
+	FractalBuilder<BitmapWriter> fractalBuilder(params);
 	
 	fractalBuilder.addZoom({384, height - 441, 0.5})
 			  	  .addZoom({397, height - 322, 0.1})

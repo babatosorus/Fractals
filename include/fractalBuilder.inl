@@ -1,4 +1,3 @@
-#include "fractalBuilder.h"
 
 #include "mandelbrot.h"
 #include "colour.h"
@@ -8,7 +7,10 @@
 #include <iostream>
 #include <vector>
 
-FractalBuilder::FractalBuilder(
+#include <type_traits>
+
+template <typename T>
+FractalBuilder<T>::FractalBuilder(
 	const FractalBuilderParams& params
 )
 : m_Viewport(
@@ -19,19 +21,26 @@ FractalBuilder::FractalBuilder(
 	params.minImaginary
 )
 {
+	static_assert(
+		std::is_base_of_v<AbstracImageWriter, T>,
+		"the template argument is not of the expected type"
+	);
+
 }
 
-void FractalBuilder::reset()
+template <typename T>
+void FractalBuilder<T>::reset()
 {
 	m_Fractals = std::vector<int>(m_Viewport.getHeight() * m_Viewport.getWidth(), 0);
   	m_Histo = std::vector<int>(MandelBrot::getMaxIterations()+ 1, 0);
-  	m_Bitmap= BitmapWriter(m_Viewport.getWidth(),m_Viewport.getHeight());
+  	m_Writer= BitmapWriter(m_Viewport.getWidth(),m_Viewport.getHeight());
 
   	m_ColourLookUp.clear();
 	m_RangeColStats = std::vector<int>(m_Colours.size());
 }
 
-void FractalBuilder::generate(const std::string& name)
+template <typename T>
+void FractalBuilder<T>::generate(const std::string& name)
 {
 	reset();
 	computeIterations();
@@ -40,22 +49,25 @@ void FractalBuilder::generate(const std::string& name)
 }
 
 
-FractalBuilder& FractalBuilder::addColourRange(double range, const Colour& colour)
+template <typename T>
+FractalBuilder<T>& FractalBuilder<T>::addColourRange(double range, const Colour& colour)
 {
 	m_Colours.push_back(std::make_pair(colour, range*MandelBrot::getMaxIterations()));
 	return *this;
 }
 
+// template <typename T>
+// template <typename T>
+// void printHisto(const std::vector<T>& v)
+// {
+// 	for (T vv : v)
+// 		std::cout<<vv<<" ";
+
+// 	std::cout<<std::endl;
+// }
+
 template <typename T>
-void printHisto(const std::vector<T>& v)
-{
-	for (T vv : v)
-		std::cout<<vv<<" ";
-
-	std::cout<<std::endl;
-}
-
-void FractalBuilder::computeIterations()
+void FractalBuilder<T>::computeIterations()
 {
 	for (int y = 0; y < m_Viewport.getHeight(); ++y )
 	{
@@ -73,7 +85,8 @@ void FractalBuilder::computeIterations()
 	//printHisto(m_Histo);
 }
 
-void FractalBuilder::computeColours()
+template <typename T>
+void FractalBuilder<T>::computeColours()
 {
 	int colIdx = 0;
 	m_RangeColStats[colIdx]+= m_Histo[0];
@@ -128,17 +141,19 @@ void FractalBuilder::computeColours()
 				//colour = getColour(histo2, iterationNum);
 			}
 
-			m_Bitmap.setPixel(x, y, colour);
+			m_Writer.setPixel(x, y, colour);
 		}
 	}
 }
 
-void FractalBuilder::write(const std::string& filename)
+template <typename T>
+void FractalBuilder<T>::write(const std::string& filename)
 {
-	m_Bitmap.write(filename);
+	m_Writer.write(filename);
 }
 
-FractalBuilder& FractalBuilder::addZoom(const Zoom& zoom)
+template <typename T>
+FractalBuilder<T>& FractalBuilder<T>::addZoom(const Zoom& zoom)
 {
 	m_Viewport.pushZoom(zoom);
 	return *this;
