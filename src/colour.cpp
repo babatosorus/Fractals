@@ -2,14 +2,13 @@
 
 #include <algorithm>
 
-
 Colour::Colour(uchar r, uchar g, uchar b)
   :
   m_R(r), m_G(g), m_B(b)
 {
 }
 
-Colour operator  - (const Colour& one, const Colour& two)
+Colour operator - (const Colour& one, const Colour& two)
 {
   Colour ret;
 
@@ -43,7 +42,7 @@ Colour operator  - (const Colour& one, const Colour& two)
   return ret;
 }
 
-Colour operator  + (const Colour& one, const Colour& two)
+Colour operator + (const Colour& one, const Colour& two)
 {
   Colour ret;
 
@@ -78,12 +77,12 @@ Colour operator  + (const Colour& one, const Colour& two)
 
 }
 
-Colour operator *(const Colour& one, const double& factor)
+Colour operator * (const Colour& one, const double& factor)
 {
   Colour ret;
 
   if (factor < 0)
-  {
+  { 
     return ret;
   }
 

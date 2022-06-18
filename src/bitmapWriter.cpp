@@ -34,14 +34,9 @@ bool BitmapWriter::write(const std::string& name)
   }
 
   of.write(reinterpret_cast<char*>(&fileHeader), sizeof(fileHeader));
-  std::cout<<"ddd"<<std::endl;
   of.write(reinterpret_cast<char*>(&infoHeader), sizeof(infoHeader));
-  std::cout<<"ddd"<<std::endl;
   of.write((char*)m_Data.get(), sizeof(Colour)*m_Width*m_Height);
-  std::cout<<"ddd"<<std::endl;
-
   of.close();
-
 
   return true;
 

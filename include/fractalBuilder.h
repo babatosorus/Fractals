@@ -42,15 +42,15 @@ private:
   void write(const std::string& filename);
 
 private:
-  Viewport 							m_Viewport;
-  T   								m_Writer;
+  Viewport 								            m_Viewport;
+  T   									              m_Writer;
 
-  std::vector<int> 					m_Fractals;
-  std::vector<int> 						m_Histo;
+  std::vector<int> 						        m_Fractals;
+  std::vector<int> 						        m_Histo;
 
-  std::unordered_map<int,int>			m_ColourLookUp;
+  std::unordered_map<int,int>			    m_ColourLookUp;
   std::vector<std::pair<Colour,int>>	m_Colours;
-  std::vector<int>					m_RangeColStats;
+  std::vector<int>						        m_RangeColStats;
 };
 
 #include "fractalBuilder.inl"
