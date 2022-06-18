@@ -7,16 +7,16 @@
 
 class AbstracImageWriter
 {
-	public :
+public :
 
-	AbstracImageWriter(int width = 0, int height = 0);
-	
-	virtual bool write (const std::string& name) = 0;
-	virtual void setPixel(int x, int y, const Colour& col) = 0;
+  AbstracImageWriter(int width = 0, int height = 0);
 
-	protected :
-	int m_Width{0};
-	int m_Height{0};
+  virtual bool write (const std::string& name) = 0;
+  virtual void setPixel(int x, int y, const Colour& col) = 0;
+
+protected :
+  int m_Width{0};
+  int m_Height{0};
 };
 
 #endif
